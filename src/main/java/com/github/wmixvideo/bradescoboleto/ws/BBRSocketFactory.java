@@ -29,7 +29,14 @@ class BBRSocketFactory {
 
     private static SSLContext createSSLContext(final BBRConfig config) throws UnrecoverableKeyException, CertificateException, NoSuchAlgorithmException, KeyStoreException, IOException, KeyManagementException {
         final KeyManager[] keyManagers = BBRSocketFactory.createKeyManagers(config);
-        final TrustManager[] trustManagers = new TrustManager[] { TrustManagerUtils.getAcceptAllTrustManager() };
+        TrustManager[] trustManagers = null;
+        
+        try {
+        	trustManagers = new TrustManager[] { TrustManagerUtils.getDefaultTrustManager(config.getCadeiaCertificadosKeyStore())};
+        } catch (GeneralSecurityException e) {
+        	e.printStackTrace();
+        }
+
         final SSLContext sslContext = SSLContext.getInstance(config.getSSLProtocolo());
         sslContext.init(keyManagers, trustManagers, null);
         return sslContext;

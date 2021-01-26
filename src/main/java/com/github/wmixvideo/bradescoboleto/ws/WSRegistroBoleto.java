@@ -33,7 +33,9 @@ public class WSRegistroBoleto implements BBRLoggable {
             final HttpPost request = new HttpPost(config.getAmbiente().getUrl());
             request.setHeader("Content-Type", "application/pkcs7-signature");
             request.setEntity(new StringEntity(dadoEntradaAssinadoBase64));
-
+            
+            System.out.println("Requisição no ambiente de " + config.getAmbiente().name() + " : " + config.getAmbiente().getUrl());
+            
             final HttpResponse response = httpClient.execute(request);
             this.getLogger().debug("Response status: {}", response.getStatusLine().getStatusCode());
             final String stringResposta = IOUtils.toString(response.getEntity().getContent(), StandardCharsets.UTF_8);

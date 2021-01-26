@@ -10,7 +10,7 @@ public abstract class BBRConfig {
      * @return Ambiente de trabalho.
      */
     public BBRAmbiente getAmbiente() {
-        return BBRAmbiente.HOMOLOGACAO;
+        return BBRAmbiente.PRODUCAO;
     }
 
     /**
